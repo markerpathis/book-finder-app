@@ -2,6 +2,7 @@ import { SimpleGrid, Text } from "@chakra-ui/react";
 import useBooks from "../hooks/useBooks";
 import BookCard from "./BookCard";
 import BookCardSkeleton from "./BookCardSkeleton";
+import BookCardContainer from "./BookCardContainer";
 
 const BookGrid = () => {
   const { books, error, isLoading } = useBooks();
@@ -16,9 +17,15 @@ const BookGrid = () => {
         padding="10px"
       >
         {isLoading &&
-          skeletons.map((skeleton) => <BookCardSkeleton key={skeleton} />)}
+          skeletons.map((skeleton) => (
+            <BookCardContainer>
+              <BookCardSkeleton key={skeleton} />
+            </BookCardContainer>
+          ))}
         {books.map((book) => (
-          <BookCard key={book.id} book={book} />
+          <BookCardContainer>
+            <BookCard key={book.id} book={book} />
+          </BookCardContainer>
         ))}
       </SimpleGrid>
     </>

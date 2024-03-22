@@ -9,7 +9,7 @@ interface Props {
 
 const BookCard = ({ book }: Props) => {
   return (
-    <Card borderRadius={5} overflow="hidden" width="250px">
+    <Card>
       <HStack>
         <BookCover
           cover={book.volumeInfo.imageLinks.thumbnail}

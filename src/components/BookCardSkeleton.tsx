@@ -9,7 +9,7 @@ import {
 const BookCardSkeleton = () => {
   return (
     <>
-      <Card borderRadius={5} overflow="hidden" width="250px">
+      <Card>
         <HStack>
           <Skeleton height="196px" width="50%" />
           <CardBody width="50%">
