@@ -1,7 +1,7 @@
-import React from "react";
 import { Book } from "../hooks/useBooks";
-import { Card, CardBody, HStack, Heading, Image, Text } from "@chakra-ui/react";
+import { Card, CardBody, HStack, Heading, Text } from "@chakra-ui/react";
 import BookRating from "./BookRating";
+import BookCover from "./BookCover";
 
 interface Props {
   book: Book;
@@ -9,15 +9,18 @@ interface Props {
 
 const BookCard = ({ book }: Props) => {
   return (
-    <Card borderRadius={10} overflow="hidden">
-      <Image src={book.volumeInfo.imageLinks.thumbnail} />
-      <CardBody>
-        <Heading fontSize="2xl">{book.volumeInfo.title}</Heading>
-        <HStack justifyContent="space-between">
-          <Text fontSize="14px">{book.volumeInfo.authors}</Text>
+    <Card borderRadius={5} overflow="hidden" width="250px">
+      <HStack>
+        <BookCover
+          cover={book.volumeInfo.imageLinks.thumbnail}
+          height="196px"
+        />
+        <CardBody paddingX={1}>
+          <Heading fontSize="md">{book.volumeInfo.title}</Heading>
+          <Text fontSize="sm">{book.volumeInfo.authors}</Text>
           <BookRating rating={book.volumeInfo.averageRating} />
-        </HStack>
-      </CardBody>
+        </CardBody>
+      </HStack>
     </Card>
   );
 };
