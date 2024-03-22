@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://openlibrary.org",
+  baseURL: "https://www.googleapis.com/books/v1",
   params: {},
 });

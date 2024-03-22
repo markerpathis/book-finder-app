@@ -1,37 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Text } from "@chakra-ui/react";
-
-import apiClient from "../services/api-client";
-
-interface Book {
-  key: string;
-  title: string;
-}
-
-interface FetchBooksResponse {
-  work_count: number;
-  works: Book[];
-}
+import { SimpleGrid, Text } from "@chakra-ui/react";
+import useBooks from "../hooks/useBooks";
+import BookCard from "./BookCard";
 
 const BookGrid = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    apiClient
-      .get<FetchBooksResponse>("/subjects/fantasy.json")
-      .then((res) => setBooks(res.data.works))
-      .catch((err) => setError(err.message));
-  });
+  const { books, error } = useBooks();
 
   return (
     <>
       {error && <Text>{error}</Text>}
-      <ul>
+      <SimpleGrid
+        columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
+        spacing={10}
+        padding="10px"
+      >
         {books.map((book) => (
-          <li key={book.key}>{book.title}</li>
+          <BookCard key={book.id} book={book} />
         ))}
-      </ul>
+      </SimpleGrid>
     </>
   );
 };
