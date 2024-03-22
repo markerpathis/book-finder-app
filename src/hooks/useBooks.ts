@@ -33,24 +33,30 @@ interface FetchBooksResponse {
 const useBooks = () => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
+    setLoading(true);
     apiClient
       .get<FetchBooksResponse>("/volumes?q=subject:fiction", {
         signal: controller.signal,
       })
-      .then((res) => setBooks(res.data.items))
+      .then((res) => {
+        setBooks(res.data.items);
+        setLoading(false);
+      })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message);
+        setLoading(false);
       });
 
     return () => controller.abort;
   }, []);
 
-  return { books, error };
+  return { books, error, isLoading };
 };
 
 export default useBooks;
