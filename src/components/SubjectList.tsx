@@ -1,9 +1,9 @@
 import {
+  Button,
   HStack,
   Image,
   List,
   ListItem,
-  Text,
   useColorMode,
 } from "@chakra-ui/react";
 
@@ -16,7 +16,19 @@ import fantasyIconDark from "../assets/fantasyIconDark.png";
 import scienceIconLight from "../assets/scienceIconLight.png";
 import scienceIconDark from "../assets/scienceIconDark.png";
 
-const SubjectList = () => {
+export interface Subject {
+  id: number;
+  name: string;
+  search: string;
+  iconLight: any;
+  iconDark: any;
+}
+
+interface Props {
+  onSelectSubject: (subject: Subject) => void;
+}
+
+const SubjectList = ({ onSelectSubject }: Props) => {
   const { colorMode } = useColorMode();
 
   const subjects = [
@@ -49,11 +61,10 @@ const SubjectList = () => {
       iconDark: scienceIconDark,
     },
   ];
-  console.log(colorMode);
   return (
     <List>
       {subjects.map((subject) => (
-        <ListItem key={subject.id} paddingTop={2}>
+        <ListItem key={subject.id} paddingY="10px">
           <HStack>
             <Image
               boxSize="32px"
@@ -61,7 +72,14 @@ const SubjectList = () => {
               src={colorMode === "dark" ? subject.iconLight : subject.iconDark}
               objectFit="contain"
             />
-            <Text>{subject.name}</Text>
+            <Button
+              onClick={() => onSelectSubject(subject)}
+              fontSize="lg"
+              variant="link"
+              paddingLeft="5px"
+            >
+              {subject.name}
+            </Button>
           </HStack>
         </ListItem>
       ))}

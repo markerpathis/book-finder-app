@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
+import { Subject } from "../components/SubjectList";
 
 export interface Book {
   id: string;
@@ -35,10 +36,11 @@ interface FetchBooksResponse {
   items: Book[];
 }
 
-const useBooks = () => {
+const useBooks = (selectedSubject: Subject | null) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
+  console.log(selectedSubject);
 
   const searchBooks = (apiUrl: string) => {
     const controller = new AbortController();
@@ -62,8 +64,12 @@ const useBooks = () => {
   };
 
   useEffect(() => {
-    searchBooks("/volumes?q=subject:fantasy&orderBy=relevance&maxResults=40");
-  }, []);
+    const subjectSearch = selectedSubject?.search || "fiction";
+
+    searchBooks(
+      `/volumes?q=subject:${subjectSearch}&orderBy=relevance&maxResults=40`
+    );
+  }, [selectedSubject]);
 
   return { books, error, isLoading };
 };
