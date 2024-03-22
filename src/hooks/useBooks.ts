@@ -40,17 +40,14 @@ const useBooks = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(() => {
+  const searchBooks = (apiUrl: string) => {
     const controller = new AbortController();
 
     setLoading(true);
     apiClient
-      .get<FetchBooksResponse>(
-        "/volumes?q=subject:fantasy&orderBy=relevance&maxResults=40",
-        {
-          signal: controller.signal,
-        }
-      )
+      .get<FetchBooksResponse>(apiUrl, {
+        signal: controller.signal,
+      })
       .then((res) => {
         setBooks(res.data.items);
         setLoading(false);
@@ -62,6 +59,10 @@ const useBooks = () => {
       });
 
     return () => controller.abort;
+  };
+
+  useEffect(() => {
+    searchBooks("/volumes?q=subject:fantasy&orderBy=relevance&maxResults=40");
   }, []);
 
   return { books, error, isLoading };
