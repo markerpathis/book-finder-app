@@ -25,6 +25,11 @@ export interface Book {
   };
 }
 
+// subject: fantasy, fiction, science fiction, drama,
+// subjects not working well: action, adventure, young adult
+// orderBy: newest, relevance
+// maxResults: 10 (default) - 40
+
 interface FetchBooksResponse {
   totalItems: number;
   items: Book[];
@@ -40,9 +45,12 @@ const useBooks = () => {
 
     setLoading(true);
     apiClient
-      .get<FetchBooksResponse>("/volumes?q=subject:fiction", {
-        signal: controller.signal,
-      })
+      .get<FetchBooksResponse>(
+        "/volumes?q=subject:fantasy&orderBy=relevance&maxResults=40",
+        {
+          signal: controller.signal,
+        }
+      )
       .then((res) => {
         setBooks(res.data.items);
         setLoading(false);
