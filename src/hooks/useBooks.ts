@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 import { Subject } from "../components/SubjectList";
+import { Filter } from "../components/DropdownFilter";
 
 export interface Book {
   id: string;
@@ -36,7 +37,10 @@ interface FetchBooksResponse {
   items: Book[];
 }
 
-const useBooks = (selectedSubject: Subject | null) => {
+const useBooks = (
+  selectedSubject: Subject | null,
+  selectedFilter: Filter | null
+) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -64,11 +68,11 @@ const useBooks = (selectedSubject: Subject | null) => {
 
   useEffect(() => {
     const subjectSearch = selectedSubject?.search || "fiction";
-
+    const filterSearch = selectedFilter?.search || "relevance";
     searchBooks(
-      `/volumes?q=subject:${subjectSearch}&orderBy=relevance&maxResults=40`
+      `/volumes?q=subject:${subjectSearch}&orderBy=${filterSearch}&maxResults=10`
     );
-  }, [selectedSubject]);
+  }, [selectedSubject, selectedFilter]);
 
   return { books, error, isLoading };
 };

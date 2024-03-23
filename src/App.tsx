@@ -3,9 +3,11 @@ import NavBar from "./components/NavBar";
 import BookGrid from "./components/BookGrid";
 import SubjectList, { Subject } from "./components/SubjectList";
 import { useState } from "react";
+import DropdownFilter, { Filter } from "./components/DropdownFilter";
 
 function App() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
+  const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
 
   return (
     <Grid
@@ -23,7 +25,14 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main">
-        <BookGrid selectedSubject={selectedSubject} />
+        <DropdownFilter
+          selectedFilter={selectedFilter}
+          onSelectFilter={(filter) => setSelectedFilter(filter)}
+        />
+        <BookGrid
+          selectedSubject={selectedSubject}
+          selectedFilter={selectedFilter}
+        />
       </GridItem>
     </Grid>
   );

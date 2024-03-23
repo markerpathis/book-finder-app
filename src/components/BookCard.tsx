@@ -8,11 +8,16 @@ interface Props {
 }
 
 const BookCard = ({ book }: Props) => {
+  console.log(book);
   return (
     <Card>
       <HStack>
         <BookCover
-          cover={book.volumeInfo.imageLinks.thumbnail}
+          cover={
+            book.volumeInfo.imageLinks.thumbnail
+              ? book.volumeInfo.imageLinks.thumbnail
+              : ""
+          }
           height="196px"
         />
         <CardBody paddingX={1}>

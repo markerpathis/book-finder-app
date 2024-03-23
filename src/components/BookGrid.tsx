@@ -4,13 +4,15 @@ import BookCard from "./BookCard";
 import BookCardSkeleton from "./BookCardSkeleton";
 import BookCardContainer from "./BookCardContainer";
 import { Subject } from "./SubjectList";
+import { Filter } from "./DropdownFilter";
 
 interface Props {
   selectedSubject: Subject | null;
+  selectedFilter: Filter | null;
 }
 
-const BookGrid = ({ selectedSubject }: Props) => {
-  const { books, error, isLoading } = useBooks(selectedSubject);
+const BookGrid = ({ selectedSubject, selectedFilter }: Props) => {
+  const { books, error, isLoading } = useBooks(selectedSubject, selectedFilter);
 
   const skeletons: any[] = [];
 
