@@ -11,7 +11,13 @@ interface Props {
 
 const BookGrid = ({ selectedSubject }: Props) => {
   const { books, error, isLoading } = useBooks(selectedSubject);
-  const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+  const skeletons: any[] = [];
+
+  // skeleton count will match the maxResults parameter of the API call (40)
+  for (let i = 0; i < 40; i++) {
+    skeletons.push(i);
+  }
 
   return (
     <>
@@ -27,11 +33,12 @@ const BookGrid = ({ selectedSubject }: Props) => {
               <BookCardSkeleton />
             </BookCardContainer>
           ))}
-        {books.map((book) => (
-          <BookCardContainer key={book.id}>
-            <BookCard book={book} />
-          </BookCardContainer>
-        ))}
+        {!isLoading &&
+          books.map((book) => (
+            <BookCardContainer key={book.id}>
+              <BookCard book={book} />
+            </BookCardContainer>
+          ))}
       </SimpleGrid>
     </>
   );
