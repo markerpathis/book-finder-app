@@ -13,11 +13,7 @@ const BookCard = ({ book }: Props) => {
     <Card>
       <HStack>
         <BookCover
-          cover={
-            book.volumeInfo.imageLinks.thumbnail
-              ? book.volumeInfo.imageLinks.thumbnail
-              : ""
-          }
+          cover={book.volumeInfo.imageLinks?.thumbnail}
           height="196px"
         />
         <CardBody paddingX={1}>
