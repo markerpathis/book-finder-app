@@ -17,6 +17,7 @@ function App() {
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
           <SubjectList
+            selectedSubject={selectedSubject}
             onSelectSubject={(subject) => setSelectedSubject(subject)}
           />
         </GridItem>

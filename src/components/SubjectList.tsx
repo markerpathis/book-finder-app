@@ -26,9 +26,10 @@ export interface Subject {
 
 interface Props {
   onSelectSubject: (subject: Subject) => void;
+  selectedSubject: Subject | null;
 }
 
-const SubjectList = ({ onSelectSubject }: Props) => {
+const SubjectList = ({ selectedSubject, onSelectSubject }: Props) => {
   const { colorMode } = useColorMode();
 
   const subjects = [
@@ -61,6 +62,7 @@ const SubjectList = ({ onSelectSubject }: Props) => {
       iconDark: scienceIconDark,
     },
   ];
+
   return (
     <List>
       {subjects.map((subject) => (
@@ -74,6 +76,9 @@ const SubjectList = ({ onSelectSubject }: Props) => {
             />
             <Button
               onClick={() => onSelectSubject(subject)}
+              fontWeight={
+                subject.id === selectedSubject?.id ? "bold" : "normal"
+              }
               fontSize="lg"
               variant="link"
               paddingLeft="5px"

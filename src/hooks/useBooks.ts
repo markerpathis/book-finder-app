@@ -40,7 +40,6 @@ const useBooks = (selectedSubject: Subject | null) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  console.log(selectedSubject);
 
   const searchBooks = (apiUrl: string) => {
     const controller = new AbortController();
