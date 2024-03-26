@@ -11,10 +11,8 @@ const BookCover = ({ cover, height }: Props) => {
     cover === "/src/assets/noImageIconDark.png"
   ) {
     height = "50px";
-    console.log("hey");
   }
 
-  console.log(cover);
   return (
     <>
       <Box>
