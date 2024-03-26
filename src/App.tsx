@@ -8,13 +8,14 @@ import DropdownFilter, { Filter } from "./components/DropdownFilter";
 function App() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
   const [selectedFilter, setSelectedFilter] = useState<Filter | null>(null);
+  const [searchedText, setSearchedText] = useState("");
 
   return (
     <Grid
       templateAreas={{ base: `"nav" "main"`, lg: `"nav nav" "aside main"` }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar onSearch={(searchText) => setSearchedText(searchText)} />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
@@ -32,6 +33,7 @@ function App() {
         <BookGrid
           selectedSubject={selectedSubject}
           selectedFilter={selectedFilter}
+          searchedText={searchedText}
         />
       </GridItem>
     </Grid>

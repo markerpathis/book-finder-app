@@ -9,10 +9,15 @@ import { Filter } from "./DropdownFilter";
 interface Props {
   selectedSubject: Subject | null;
   selectedFilter: Filter | null;
+  searchedText: string | null;
 }
 
-const BookGrid = ({ selectedSubject, selectedFilter }: Props) => {
-  const { books, error, isLoading } = useBooks(selectedSubject, selectedFilter);
+const BookGrid = ({ selectedSubject, selectedFilter, searchedText }: Props) => {
+  const { books, error, isLoading } = useBooks(
+    selectedSubject,
+    selectedFilter,
+    searchedText
+  );
 
   const skeletons: any[] = [];
 

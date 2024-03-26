@@ -39,7 +39,8 @@ interface FetchBooksResponse {
 
 const useBooks = (
   selectedSubject: Subject | null,
-  selectedFilter: Filter | null
+  selectedFilter: Filter | null,
+  searchedText: string | null
 ) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [error, setError] = useState("");
@@ -69,10 +70,16 @@ const useBooks = (
   useEffect(() => {
     const subjectSearch = selectedSubject?.search || "fiction";
     const filterSearch = selectedFilter?.search || "relevance";
-    searchBooks(
-      `/volumes?q=subject:${subjectSearch}&orderBy=${filterSearch}&maxResults=10`
-    );
-  }, [selectedSubject, selectedFilter]);
+    const textSearch = searchedText?.split(" ").join("+") || "";
+
+    if (textSearch) {
+      searchBooks(`/volumes?q=${textSearch}`);
+    } else {
+      searchBooks(
+        `/volumes?q=subject:${subjectSearch}&orderBy=${filterSearch}&maxResults=10`
+      );
+    }
+  }, [selectedSubject, selectedFilter, searchedText]);
 
   return { books, error, isLoading };
 };
