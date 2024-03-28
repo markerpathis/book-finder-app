@@ -1,5 +1,6 @@
 import {
   Button,
+  Heading,
   HStack,
   Image,
   List,
@@ -64,31 +65,40 @@ const SubjectList = ({ selectedSubject, onSelectSubject }: Props) => {
   ];
 
   return (
-    <List>
-      {subjects.map((subject) => (
-        <ListItem key={subject.id} paddingY="10px">
-          <HStack>
-            <Image
-              boxSize="32px"
-              borderRadius={0}
-              src={colorMode === "dark" ? subject.iconLight : subject.iconDark}
-              objectFit="contain"
-            />
-            <Button
-              onClick={() => onSelectSubject(subject)}
-              fontWeight={
-                subject.id === selectedSubject?.id ? "bold" : "normal"
-              }
-              fontSize="lg"
-              variant="link"
-              paddingLeft="5px"
-            >
-              {subject.name}
-            </Button>
-          </HStack>
-        </ListItem>
-      ))}
-    </List>
+    <>
+      <Heading fontSize="2xl" marginBottom={3}>
+        Genres
+      </Heading>
+      <List>
+        {subjects.map((subject) => (
+          <ListItem key={subject.id} paddingY="10px">
+            <HStack>
+              <Image
+                boxSize="32px"
+                borderRadius={0}
+                src={
+                  colorMode === "dark" ? subject.iconLight : subject.iconDark
+                }
+                objectFit="contain"
+              />
+              <Button
+                onClick={() => onSelectSubject(subject)}
+                whiteSpace="normal"
+                textAlign="left"
+                fontWeight={
+                  subject.id === selectedSubject?.id ? "bold" : "normal"
+                }
+                fontSize="lg"
+                variant="link"
+                paddingLeft="5px"
+              >
+                {subject.name}
+              </Button>
+            </HStack>
+          </ListItem>
+        ))}
+      </List>
+    </>
   );
 };
 
