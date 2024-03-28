@@ -5,6 +5,7 @@ import SubjectList, { Subject } from "./components/SubjectList";
 import { useState } from "react";
 import DropdownFilter, { Filter } from "./components/DropdownFilter";
 import ResultsHeading from "./components/ResultsHeading";
+import subjectData from "./data/subjects";
 
 function App() {
   const [selectedSubject, setSelectedSubject] = useState<Subject | null>(null);
@@ -23,6 +24,7 @@ function App() {
           <SubjectList
             selectedSubject={selectedSubject}
             onSelectSubject={(subject) => setSelectedSubject(subject)}
+            subjectData={subjectData}
           />
         </GridItem>
       </Show>
